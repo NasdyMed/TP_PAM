@@ -17,6 +17,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
+
+/*--- Le recyclerView nécessite un Adapter pour liée les informations à notre vue (viewholder) ---*/
 class MovieAdapter(context: Context, private var movies: MutableList<Movie>) :
     RecyclerView.Adapter<MovieAdapter.MovieHolder>(), Filterable {
     val context: Context
@@ -73,6 +75,7 @@ class MovieAdapter(context: Context, private var movies: MutableList<Movie>) :
         movieListFull = ArrayList(movieList)
     }
 
+    /*--- Fonction filtre à partir de la saisie de l'utilisateur dans le menu de recherche ---*/
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {

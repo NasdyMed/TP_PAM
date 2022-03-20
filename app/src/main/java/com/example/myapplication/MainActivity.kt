@@ -17,31 +17,33 @@ import org.json.JSONException
 
 
 class MainActivity : AppCompatActivity() {
+
+    /*--- Définition des variables ---*/
     private var recyclerView: RecyclerView? = null
     private var requestQueue: RequestQueue? = null
     private var movieList: MutableList<Movie>? = null
+
+    /*--- Initialisation du RecyclerView avec data + Création de la RequestQueue ---*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-
-        val bar: android.app.ActionBar? = actionBar
-        bar?.title = "Test"
         recyclerView = findViewById(R.id.recyclerview)
         recyclerView!!.setHasFixedSize(true)
-        recyclerView!!.setLayoutManager(LinearLayoutManager(this))
+        recyclerView!!.layoutManager = LinearLayoutManager(this)
         requestQueue = VolleySingleton.getmInstance(this)!!.requestQueue
         movieList = ArrayList()
         fetchMovies()
     }
 
+
+    /*--- La fonction gére le traitement de recherche dans la toolbar  ---*/
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.mainmenu, menu)
+        menuInflater.inflate(R.menu.mainmenu, menu)
         val searchItem: MenuItem = menu!!.findItem(R.id.action_search)
-        val searchView: SearchView = searchItem.getActionView() as SearchView
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE)
+        val searchView: SearchView = searchItem.actionView as SearchView
+        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
+    /*--- La fonction qui gére le traitement API , la récuperation du JSON + création une instance de la classe Movie + adapter data dans recyclerView ---*/
     private fun fetchMovies() {
         val url = "https://jsonkeeper.com/b/VQGE"
         val jsonArrayRequest = JsonArrayRequest(

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 
-
+/*--- Dans cette classe, on gére le informations sur un film sélectionné => Le detail d'un item de recyclerView, Les informations sont récuperée par Bundle ----*/
 class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
